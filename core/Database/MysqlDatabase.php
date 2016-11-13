@@ -6,7 +6,7 @@
  * Time: 12:30
  */
 
-namespace App\Database;
+namespace Core\Database;
 
 use \PDO;
 

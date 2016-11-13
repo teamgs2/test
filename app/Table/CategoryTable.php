@@ -9,7 +9,10 @@
 namespace App\Table;
 
 
-class UsersTable extends Table
+use Core\Table\Table;
+
+class CategoryTable extends Table
 {
+    protected $table = 'categories';
 
 }

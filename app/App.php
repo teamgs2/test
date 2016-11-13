@@ -7,10 +7,8 @@
  */
 
 
-namespace App;
 
-
-use App\Database\MysqlDatabase;
+use Core\Database\MysqlDatabase;
 
 class App
 {
@@ -21,6 +19,14 @@ class App
 
     private function __Construct()
     {
+
+    }
+
+
+    public static function load()
+    {
+        session_start();
+        require "vendor/autoload.php";
 
     }
 
@@ -40,7 +46,7 @@ class App
 
     public function getDB()
     {
-        $config = Config::getInstance();
+        $config = \Core\Config::getInstance("config/config.php");
         if (empty($this->db_instance))
         {
             $this->db_instance = new MysqlDatabase($config->get('db_name'),$config->get('db_user'),$config->get('db_host'),$config->get('db_pass'));

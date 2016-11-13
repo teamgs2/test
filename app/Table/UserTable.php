@@ -9,9 +9,9 @@
 namespace App\Table;
 
 
-class PostsTable extends Table
-{
-    protected $table ;
+use Core\Table\Table;
 
+class UserTable extends Table
+{
 
 }

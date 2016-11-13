@@ -6,7 +6,7 @@
  * Time: 22:53
  */
 
-namespace App\Database;
+namespace Core\Database;
 
 
 class Database
