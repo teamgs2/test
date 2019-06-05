@@ -1,47 +1,48 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mhamm
- * Date: 12/11/2016
- * Time: 11:47
- */
-
 namespace App\Table;
-
 
 use Core\Table\Table;
 
-class PostTable extends Table
-{
-    protected $table ;
+class PostTable extends Table{
+
+    protected $table = 'articles';
 
     /**
-     * Réccupère les derniers articles
+     * Récupère les derniers article
      * @return array
      */
     public function last(){
         return $this->query("
             SELECT articles.id, articles.titre, articles.contenu, articles.date, categories.titre as categorie
-             FROM articles
-             LEFT JOIN categories ON category_id = categories.id
-             ORDER BY articles.date DESC ");
+            FROM articles
+            LEFT JOIN categories ON category_id = categories.id
+            ORDER BY articles.date DESC");
     }
 
     /**
-     * Réccupère un article
-     * @param $id l'Id du post recherché
-     * @return array|mixed
+     * Récupère les derniers articles de la category demandée
+     * @param $category_id int
+     * @return array
      */
-    public function find($id){
+    public function lastByCategory($category_id){
         return $this->query("
-        SELECT articles.id, articles.titre, articles.contenu, articles.date, categories.titre as categorie
-             FROM articles
-             LEFT JOIN categories ON category_id = categories.id
-              WHERE articles.id = ?",
-            array($id),true);
+            SELECT articles.id, articles.titre, articles.contenu, articles.date, categories.titre as categorie
+            FROM articles
+            LEFT JOIN categories ON category_id = categories.id
+            WHERE articles.category_id = ?
+            ORDER BY articles.date DESC", [$category_id]);
     }
 
-    public function findByCategory($id){
-        return $this->query('SELECT * FROM articles WHERE category_id = ?', array($id));
+    /**
+     * Récupère un article en liant la catégorie associée
+     * @param $id int
+     * @return \App\Entity\PostEntity
+     */
+    public function findWithCategory($id){
+        return $this->query("
+            SELECT articles.id, articles.titre, articles.contenu, articles.date, categories.titre as categorie
+            FROM articles
+            LEFT JOIN categories ON category_id = categories.id
+            WHERE articles.id = ?", [$id], true);
     }
 }
